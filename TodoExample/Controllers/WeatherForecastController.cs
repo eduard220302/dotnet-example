@@ -1,8 +1,17 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TodoExample.Controllers;
 
 public record RequestData(string Title);
+
+public class RequestDataValidator : AbstractValidator<RequestData>
+{
+    public RequestDataValidator()
+    {
+        RuleFor(x => x.Title).NotEmpty().MaximumLength(10);
+    }
+}
 
 [ApiController]
 [Route("[controller]")]
